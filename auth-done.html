@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manager - Authentication complete</title>
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      display: grid;
+      place-items: center;
+      background: #f6f3ec;
+      color: #1a1815;
+      padding: 24px;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #141212; color: #ece7dc; }
+    }
+    .card {
+      max-width: 420px;
+      text-align: center;
+      padding: 32px 28px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 10px; letter-spacing: -0.01em; }
+    p { margin: 0; opacity: 0.72; line-height: 1.5; font-size: 0.95rem; }
+    .check {
+      width: 48px; height: 48px; margin: 0 auto 18px; border-radius: 50%;
+      background: #2f6f4f; display: grid; place-items: center;
+    }
+    .check svg { width: 24px; height: 24px; color: #fff; }
+    .hint { margin-top: 18px; font-size: 0.82rem; opacity: 0.5; }
+    button {
+      margin-top: 18px; font: inherit; padding: 9px 16px; border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.15); background: transparent; color: inherit; cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+      button { border-color: rgba(255,255,255,0.2); }
+    }
+    button:hover { background: rgba(0,0,0,0.04); }
+    @media (prefers-color-scheme: dark) {
+      button:hover { background: rgba(255,255,255,0.06); }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+    </div>
+    <h1>You're signed in</h1>
+    <p>Manager has received your login. You can close this tab and return to the app.</p>
+    <button type="button" id="retry" hidden>Reopen in Manager</button>
+    <p class="hint" id="hint">Redirecting...</p>
+  </main>
+  <script>
+    (function () {
+      var search = window.location.search || '';
+      var target = 'manager://auth-callback' + search;
+      var hint = document.getElementById('hint');
+      var retry = document.getElementById('retry');
+      function go() { try { window.location.href = target; } catch (e) {} }
+      go();
+      setTimeout(function () {
+        retry.hidden = false;
+        hint.textContent = 'If nothing happened, click the button above.';
+      }, 1500);
+      retry.addEventListener('click', go);
+    })();
+  </script>
+</body>
+</html>
