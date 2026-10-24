@@ -1,5 +1,5 @@
 # Manager — Binary Releases
-Site - https://managerladger.com
+Site - Redesign SOON OUT
 
 This repository hosts the official binary releases of **Manager**, a desktop productivity app built for focus, discipline, and long-term consistency.
 
